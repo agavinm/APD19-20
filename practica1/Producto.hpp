@@ -15,18 +15,22 @@
 
 class Producto {
     std::string nombre;
-    int unidades;
+    uint32_t unidades;
     float precio;
 public:
-    Producto(const std::string &nombre, int unidades, float precio);
+    Producto(const std::string &nombre, uint32_t unidades, float precio);
 
     const std::string &getNombre() const;
 
-    int getUnidades() const;
+    uint32_t getUnidades() const;
 
     float getPrecio() const;
 
     friend std::ostream &operator<<(std::ostream &os, const Producto &producto);
+
+    bool operator==(const Producto &rhs) const;
+
+    bool operator!=(const Producto &rhs) const;
 };
 
 

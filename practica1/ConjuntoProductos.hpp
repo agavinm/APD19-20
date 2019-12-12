@@ -41,7 +41,7 @@ public:
      * Genera un conjunto de numProductos productos aleatorios.
      * @param numProductos
      */
-    explicit ConjuntoProductos(int numProductos);
+    explicit ConjuntoProductos(uint32_t numProductos);
 
     /**
      * Genera un conjunto de productos a partir de los ficheros fin1 y fin2.
@@ -50,9 +50,23 @@ public:
      */
     ConjuntoProductos(const std::string &fin1, const std::string &fin2);
 
+    /**
+     * Devuelve la posición que ocupa en el vector compradosJuntos la posición de la matriz (i,j)
+     * @param i
+     * @param j
+     * @return
+     */
+    uint32_t posCompradosJuntos(uint32_t i, uint32_t j) const;
+
     const std::vector<Producto> &getProductos() const;
 
+    void save(const std::string &fout1, const std::string &fout2, bool randomSpaces) const;
+
     void save(const std::string &fout1, const std::string &fout2) const;
+
+    bool operator==(const ConjuntoProductos &rhs) const;
+
+    bool operator!=(const ConjuntoProductos &rhs) const;
 };
 
 
