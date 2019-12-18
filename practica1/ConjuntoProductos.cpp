@@ -11,14 +11,15 @@
 #include <fstream>
 #include "ConjuntoProductos.hpp"
 
+// Valores máximos para generar aleatorios
 #define MAX_NOMBRE 20
 #define MAX_UNIDADES 1000000
 #define MAX_PRECIO 100000
-#define MAX_SPACES 10
+#define MAX_SPACES 5
 
 using namespace std;
 
-ConjuntoProductos::ConjuntoProductos(uint32_t numProductos) {
+void ConjuntoProductos::generarConjuntoProductos(uint32_t numProductos, float probV) {
     this->productos.reserve(numProductos);
     uint32_t compradosJuntosTam = (numProductos * numProductos - numProductos) / 2;
     this->compradosJuntos.reserve(compradosJuntosTam);
@@ -43,12 +44,21 @@ ConjuntoProductos::ConjuntoProductos(uint32_t numProductos) {
     }
 
     // Generar la matriz de compradosJuntos
-    uniform_real_distribution<float> distProbV(0.3f, 0.7f);
-    float probV = distProbV(mt);
-
     uniform_real_distribution<float> distProb(0, 1);
     for (uint32_t i = 0; i < compradosJuntosTam; i++)
         this->compradosJuntos.push_back(probV < distProb(mt));
+}
+
+ConjuntoProductos::ConjuntoProductos(uint32_t numProductos, float probV) {
+    generarConjuntoProductos(numProductos, probV);
+}
+
+ConjuntoProductos::ConjuntoProductos(uint32_t numProductos) {
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_real_distribution<float> distProbV(0.3f, 0.7f);
+
+    generarConjuntoProductos(numProductos, distProbV(mt));
 }
 
 uint32_t posCompradosJuntosAux(uint32_t i, uint32_t j, uint32_t numProductos) {

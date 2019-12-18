@@ -36,9 +36,26 @@ class ConjuntoProductos {
     std::vector<Producto> productos;
     std::vector<bool> compradosJuntos;
 
+    /**
+     * Genera un conjunto de numProductos productos aleatorios con probabilidad probV de que dos productos se hayan
+     * comprado juntos.
+     * @param numProductos
+     * @param probV
+     */
+    void generarConjuntoProductos(uint32_t numProductos, float probV);
+
 public:
     /**
-     * Genera un conjunto de numProductos productos aleatorios.
+     * Genera un conjunto de numProductos productos aleatorios con probabilidad probV de que dos productos se hayan
+     * comprado juntos.
+     * @param numProductos
+     * @param probV
+     */
+    explicit ConjuntoProductos(uint32_t numProductos, float probV);
+
+    /**
+     * Genera un conjunto de numProductos productos aleatorios con probabilidad aleatoria perteneciente a [0.3, 0.7] de
+     * que dos productos se hayan comprado juntos.
      * @param numProductos
      */
     explicit ConjuntoProductos(uint32_t numProductos);
