@@ -1,7 +1,7 @@
 /******************************************************************************
  * @file    Producto.cpp
  * @author  Andrés Gavín Murillo, 716358
- * @author  Darío
+ * @author  Darío Ferrer Chueca, 721132
  * @date    Diciembre 2019
  * @coms    Algoritmia para Problemas Difíciles - Práctica 1
  ******************************************************************************/

@@ -1,7 +1,7 @@
 /******************************************************************************
  * @file    main.cpp
  * @author  Andrés Gavín Murillo, 716358
- * @author  Darío
+ * @author  Darío Ferrer Chueca, 721132
  * @date    Diciembre 2019
  * @coms    Algoritmia para Problemas Difíciles - Práctica 1
  ******************************************************************************/
@@ -14,35 +14,29 @@ using namespace std;
 
 int main() {
     const string f = "../ficheros/";
-    const array<int, 3> s = {10, 100, 1000}; // número de productos
-    const array<float, 3> p = {0.1f, 0.5f, 0.9f}; // probabilidades de que dos productos se hayan comprado juntos
+    int numProd = 1000;
+    const array<float, 11> p = {0.0f, 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 0.9f, 1.0f}; // probabilidades de que dos productos se hayan comprado juntos
 
-    for (int r = 0; r <= 1; r++)
-        for (unsigned long i = 0; i < s.size(); i++) {
-            string f1 = f + "f1_";
-            string f2 = f + "f2_";
+    int r = 0;
+    for (float i : p) {
+        string f1 = f + "f1_" + to_string(numProd) + "_" + to_string(i).substr(0, 3) + ".txt";
+        string f2 = f + "f2_" + to_string(numProd) + "_" + to_string(i).substr(0, 3) + ".txt";
 
-            ConjuntoProductos *cp;
-            if (r == 1) {
-                cp = new ConjuntoProductos(s[i]);
+        ConjuntoProductos *cp;
+        if (r % 2 != 0)
+            cp = new ConjuntoProductos(numProd);
+        else
+            cp = new ConjuntoProductos(numProd, i);
 
-                f1 += "random_";
-                f2 += "random_";
-            }
-            else
-                cp = new ConjuntoProductos(s[i], p[i]);
+        cp->save(f1, f2, r % 2 != 0);
+        ConjuntoProductos aux(f1, f2);
+        if (*cp == aux)
+            cout << i << ": Correcto" << endl;
+        else
+            cout << i << ": Distintos" << endl;
 
-            f1 += to_string(s[i]) + ".txt";
-            f2 += to_string(s[i]) + ".txt";
-
-            cp->save(f1, f2, r == 1);
-            ConjuntoProductos aux(f1, f2);
-            if (*cp == aux)
-                cout << s[i] << ": Correcto" << endl;
-            else
-                cout << s[i] << ": Distintos" << endl;
-
-            delete(cp);
-        }
+        delete(cp);
+        r++;
+    }
     return 0;
 }

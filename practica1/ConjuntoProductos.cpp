@@ -1,7 +1,7 @@
 /******************************************************************************
  * @file    ConjuntoProductos.hpp
  * @author  Andrés Gavín Murillo, 716358
- * @author  Darío
+ * @author  Darío Ferrer Chueca, 721132
  * @date    Diciembre 2019
  * @coms    Algoritmia para Problemas Difíciles - Práctica 1
  ******************************************************************************/
@@ -46,7 +46,7 @@ void ConjuntoProductos::generarConjuntoProductos(uint32_t numProductos, float pr
     // Generar la matriz de compradosJuntos
     uniform_real_distribution<float> distProb(0, 1);
     for (uint32_t i = 0; i < compradosJuntosTam; i++)
-        this->compradosJuntos.push_back(probV < distProb(mt));
+        this->compradosJuntos.push_back(probV >= distProb(mt));
 }
 
 ConjuntoProductos::ConjuntoProductos(uint32_t numProductos, float probV) {

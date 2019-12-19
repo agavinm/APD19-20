@@ -1,0 +1,28 @@
+/******************************************************************************
+ * @file    generacion_datos.txt
+ * @author  Andrés Gavín Murillo, 716358
+ * @author  Darío Ferrer Chueca, 721132
+ * @date    Diciembre 2019
+ * @coms    Algoritmia para Problemas Difíciles - Práctica 1
+ ******************************************************************************/
+
+Se han generado de manera aleatoria una serie de productos, que cuentan con tres características distintas, el nombre,
+la cantidad y el precio. Todas estas características se generan de manera aleatoria. Una vez obtenidos estos productos
+se genera la matriz comprados_juntos. Ésta es una matriz cuadrada(num_productos x num_productos), que se genera de
+manera aleatoria, pero dando la probabilidad de que los productos hayan sido comprados entre sí. Los valores posibles
+para cada (i,j) son 1 y 0, siendo 1 en caso de que los productos i,j hayan sido comprados juntos y 0 en caso contrario.
+
+Para la realización de las pruebas, se han generado 11 matrices distintas en 11 ficheros, comenzando con una
+probabilidad de que dos productos sean comprados juntos de 0.0, aumentando cada vez en 0.1 hasta llegar a 1.0. De esta
+manera se cubren todos los casos, desde que no haya ningún par de productos comprados juntos hasta que todos los pares
+de productos hayan sido comprados juntos.
+
+Además, en algunos de los ficheros, se han colocado un número de espacios aleatorios entre los diferentes datos de la
+matriz, de manera que se comprueba así el funcionamiento para formatos distintos de ficheros, ya que en el enunciado se
+especifica que puede existir un número de espacios variables.
+
+En cada caso se han generado 1000 productos, ya que se ha pensado que 100 productos serían muy pocos y 10000 productos
+serían demasiados. Esto es debido a que en los respectivos grafos, donde cada producto es un nodo y cada arista
+representa si dos productos se han comprado juntos o no, el número máximo de aristas que puede haber es (n*(n-1))/2, ya
+que un producto no tiene arista consigo mismo (n-1) y una arista entre dos productos sólo se cuenta una vez (/2).
+En el caso de los 1000 productos hay un máximo de 499500 aristas que se podrán resolver.
