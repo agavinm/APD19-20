@@ -86,11 +86,11 @@ ConjuntoProductos::ConjuntoProductos(const std::string &fin1, const std::string 
     f2 >> numProductos;
     uint32_t compradosJuntosTam = (numProductos * numProductos - numProductos) / 2;
     this->compradosJuntos.reserve(compradosJuntosTam);
-    bool val;
+    uint32_t val;
     for (uint32_t i = 0; i < numProductos; i++)
         for (uint32_t j = 0; j < numProductos; j++) {
             f2 >> val;
-            if (i == j && !val) {
+            if (i == j && val != 1) {
                 cerr << "Error en el formato del fichero " << fin2 << ", en la posición i=" << i << ", j=" << j << endl;
                 exit(1);
             }

@@ -18,23 +18,23 @@
  *
  * productos = [p0, p1, ..., pn-1]
  *
- * compradosJuntos almacena los booleanos correspondientes a si dos productos (i,j) han sido almacenados juntos alguna
- * vez, como (i,i) es Verdad y (i,j) = (j,i) solo se almacenan los valores no repetidos, es decir, el triángulo superior
+ * compradosJuntos almacena los valores correspondientes a si dos productos (i,j) han sido almacenados juntos alguna
+ * vez, como (i,i) es 1 y (i,j) = (j,i) solo se almacenan los valores no repetidos, es decir, el triángulo superior
  * de la matriz sin incluir la diagonal.
  *
  * tam(compradosJuntos) = (n * n - n) / 2
  *
  * Ejemplo de matriz compradosJuntos:
- *  V A B C
- *  A V D E
- *  B D V F
- *  C E F V
+ *  1 A B C
+ *  A 1 D E
+ *  B D 1 F
+ *  C E F 1
  * compradosJuntos = [A, B, C, D, E, F]
  *
  */
 class ConjuntoProductos {
     std::vector<Producto> productos;
-    std::vector<bool> compradosJuntos;
+    std::vector<uint32_t> compradosJuntos;
 
     /**
      * Genera un conjunto de numProductos productos aleatorios con probabilidad probV de que dos productos se hayan
