@@ -8,6 +8,11 @@
 
 #include <iostream>
 #include <array>
+#include <map>
+#include <limits>
+#include <cmath>
+#include <random>
+//#include <iomanip>
 #include "ConjuntoProductos.hpp"
 
 using namespace std;
@@ -39,6 +44,65 @@ void generarDatosPrueba(const string &f) {
     }
 }
 
+/**
+ * https://en.wikipedia.org/wiki/Karger%27s_algorithm
+ * @param cp
+ * @return
+ */
+pair<map<uint32_t, uint32_t>, map<uint32_t, uint32_t>> corteMinimo(const ConjuntoProductos &cp) {
+    const vector<uint32_t> &compradosJuntos = cp.getCompradosJuntos();
+    const uint32_t numProductos = cp.getProductos().size(); // n
+
+    pair<map<uint32_t, uint32_t>, map<uint32_t, uint32_t>> corte;
+    uint32_t aristasCorte = numeric_limits<uint32_t>::max(); // Se inicializa a "infinito"
+    const uint32_t T = log(numProductos) * ((double) (numProductos * (numProductos - 1)) / 2);
+
+    vector<map<uint32_t, uint32_t>> nodos;
+    nodos.reserve(numProductos);
+    for (uint32_t i = 0; i < numProductos; i++) {
+        map<uint32_t, uint32_t> m;
+        m.emplace(i, i);
+        nodos.push_back(m);
+    }
+
+    random_device rd;
+    mt19937 mt(rd());
+
+    // Repetir T veces
+    for (uint32_t i = 0; i < T; i++) {
+        vector<map<uint32_t, uint32_t>> nodosAux = nodos; // O(n)
+
+        // Algoritmo de Karger O(n²)
+        while (nodosAux.size() > 2) { // O(n)
+            uniform_int_distribution<uint32_t> randDist(0, nodosAux.size() - 1);
+            uint32_t nodoA = randDist(mt), nodoB = randDist(mt);
+            while (nodoA == nodoB) {
+                nodoB = randDist(mt);
+            }
+
+            // O(n)
+            nodosAux[nodoA].insert(nodosAux[nodoB].begin(), nodosAux[nodoB].end());
+            nodosAux.erase(nodosAux.begin() + nodoB);
+        }
+
+        uint32_t aristasCorteAux = 0;
+        for (pair <uint32_t, uint32_t> nodoA : nodosAux[0]) {
+            for (pair <uint32_t, uint32_t> nodoB : nodosAux[1]) {
+                aristasCorteAux += compradosJuntos[posCompradosJuntosAux(nodoA.first, nodoB.first, numProductos)];
+            }
+        }
+
+        if (aristasCorteAux < aristasCorte) {
+            aristasCorte = aristasCorteAux;
+            corte = {nodosAux[0], nodosAux[1]};
+        }
+
+        //cout <<'\r' << setprecision(2) << setw(6) << (float) i / T << "%" << flush;
+    }
+
+    return corte;
+}
+
 int main(int argc, char *argv[]) {
     if (argc != 2 && argc != 3) {
         cout << "Uso:" << endl;
@@ -56,6 +120,12 @@ int main(int argc, char *argv[]) {
     }
 
     ConjuntoProductos cp(argv[1], argv[2]);
+    if (cp.getProductos().size() < 2) {
+        cerr << "Se necesita al menos un conjunto de 2 productos." << endl;
+        return 1;
+    }
+    pair<map<uint32_t, uint32_t>, map<uint32_t, uint32_t>> corte = corteMinimo(cp);
+    cout << corte.first.size() << endl << corte.second.size() << endl;
 
     return 0;
 }

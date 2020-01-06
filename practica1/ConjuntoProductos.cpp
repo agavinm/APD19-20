@@ -124,6 +124,10 @@ const std::vector<Producto> &ConjuntoProductos::getProductos() const {
     return productos;
 }
 
+const std::vector<uint32_t> &ConjuntoProductos::getCompradosJuntos() const {
+    return compradosJuntos;
+}
+
 void ConjuntoProductos::save(const string &fout1, const string &fout2, bool randomSpaces) const {
     // Abrir primer fichero de salida
     ofstream f1(fout1);

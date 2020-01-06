@@ -77,6 +77,8 @@ public:
 
     const std::vector<Producto> &getProductos() const;
 
+    const std::vector<uint32_t> &getCompradosJuntos() const;
+
     void save(const std::string &fout1, const std::string &fout2, bool randomSpaces) const;
 
     void save(const std::string &fout1, const std::string &fout2) const;
@@ -85,6 +87,15 @@ public:
 
     bool operator!=(const ConjuntoProductos &rhs) const;
 };
+
+/**
+ * Devuelve la posición que ocupa en el vector compradosJuntos la posición de la matriz (i,j)
+ * @param i
+ * @param j
+ * @param numProductos
+ * @return
+ */
+uint32_t posCompradosJuntosAux(uint32_t i, uint32_t j, uint32_t numProductos);
 
 
 #endif //PRACTICA1_CONJUNTOPRODUCTOS_HPP
