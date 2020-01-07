@@ -38,27 +38,30 @@ class ConjuntoProductos {
 
     /**
      * Genera un conjunto de numProductos productos aleatorios con probabilidad probV de que dos productos se hayan
-     * comprado juntos.
+     * comprado juntos un numero aleatorio de veces entre 1 y maxJuntos.
      * @param numProductos
      * @param probV
+     * @param maxJuntos
      */
-    void generarConjuntoProductos(uint32_t numProductos, float probV);
+    void generarConjuntoProductos(uint32_t numProductos, float probV, uint32_t maxJuntos);
 
 public:
     /**
      * Genera un conjunto de numProductos productos aleatorios con probabilidad probV de que dos productos se hayan
-     * comprado juntos.
+     * comprado juntos un numero aleatorio de veces entre 1 y maxJuntos.
      * @param numProductos
      * @param probV
+     * @param maxJuntos
      */
-    explicit ConjuntoProductos(uint32_t numProductos, float probV);
+    explicit ConjuntoProductos(uint32_t numProductos, float probV, uint32_t maxJuntos);
 
     /**
      * Genera un conjunto de numProductos productos aleatorios con probabilidad aleatoria perteneciente a [0.3, 0.7] de
-     * que dos productos se hayan comprado juntos.
+     * que dos productos se hayan comprado juntos un numero aleatorio de veces entre 1 y maxJuntos.
      * @param numProductos
+     * @param maxJuntos
      */
-    explicit ConjuntoProductos(uint32_t numProductos);
+    explicit ConjuntoProductos(uint32_t numProductos, uint32_t maxJuntos);
 
     /**
      * Genera un conjunto de productos a partir de los ficheros fin1 y fin2.

@@ -19,7 +19,7 @@
 
 using namespace std;
 
-void ConjuntoProductos::generarConjuntoProductos(uint32_t numProductos, float probV) {
+void ConjuntoProductos::generarConjuntoProductos(uint32_t numProductos, float probV, uint32_t maxJuntos) {
     this->productos.reserve(numProductos);
     uint32_t compradosJuntosTam = (numProductos * numProductos - numProductos) / 2;
     this->compradosJuntos.reserve(compradosJuntosTam);
@@ -45,20 +45,25 @@ void ConjuntoProductos::generarConjuntoProductos(uint32_t numProductos, float pr
 
     // Generar la matriz de compradosJuntos
     uniform_real_distribution<float> distProb(0, 1);
-    for (uint32_t i = 0; i < compradosJuntosTam; i++)
-        this->compradosJuntos.push_back(probV >= distProb(mt));
+    uniform_int_distribution<uint32_t> distJuntos(1, maxJuntos);
+    for (uint32_t i = 0; i < compradosJuntosTam; i++) {
+        if (probV >= distProb(mt))
+            this->compradosJuntos.push_back(distJuntos(mt));
+        else
+            this->compradosJuntos.push_back(0);
+    }
 }
 
-ConjuntoProductos::ConjuntoProductos(uint32_t numProductos, float probV) {
-    generarConjuntoProductos(numProductos, probV);
+ConjuntoProductos::ConjuntoProductos(uint32_t numProductos, float probV, uint32_t maxJuntos) {
+    generarConjuntoProductos(numProductos, probV, maxJuntos);
 }
 
-ConjuntoProductos::ConjuntoProductos(uint32_t numProductos) {
+ConjuntoProductos::ConjuntoProductos(uint32_t numProductos, uint32_t maxJuntos) {
     random_device rd;
     mt19937 mt(rd());
     uniform_real_distribution<float> distProbV(0.3f, 0.7f);
 
-    generarConjuntoProductos(numProductos, distProbV(mt));
+    generarConjuntoProductos(numProductos, distProbV(mt), maxJuntos);
 }
 
 uint32_t posCompradosJuntosAux(uint32_t i, uint32_t j, uint32_t numProductos) {
@@ -151,7 +156,7 @@ void ConjuntoProductos::save(const string &fout1, const string &fout2, bool rand
                 f2 << " ";
 
             if (i == j)
-                f2 << true;
+                f2 << 1;
             else if (i < j)
                 f2 << this->compradosJuntos[this->posCompradosJuntos(i, j)];
             else

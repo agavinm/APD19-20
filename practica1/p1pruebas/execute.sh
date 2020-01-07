@@ -1,3 +1,0 @@
-g++ -std=c++11 main.cc -o main
-./main
-gnuplot plot_data.gp
