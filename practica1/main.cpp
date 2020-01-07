@@ -106,7 +106,7 @@ tuple<map<uint32_t, uint32_t>, map<uint32_t, uint32_t>, uint32_t> corteMinimo(co
 
         if (aristasCorteAux < aristasCorte) { // Guarda el corte con menor número de aristas que separan los conjuntos
             aristasCorte = aristasCorteAux;
-            corte = {nodosAux[0], nodosAux[1], aristasCorte};
+            corte = make_tuple(nodosAux[0], nodosAux[1], aristasCorte);
         }
     }
 
