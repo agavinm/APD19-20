@@ -22,5 +22,16 @@ int main(int argc, char *argv[]) {
         cout << (char) c;
     cout << endl;
 
+    vector<uint8_t> transformadaRevertida = revertir(transformada.first, transformada.second);
+    cout << "Revertida: ";
+    for (uint8_t c : transformadaRevertida)
+        cout << (char) c;
+    cout << endl;
+
+    if (cadena == transformadaRevertida)
+        cout << "CORRECTO" << endl;
+    else
+        cerr << "ERROR" << endl;
+
     return 0;
 }
