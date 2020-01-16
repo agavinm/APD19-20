@@ -8,12 +8,14 @@
 
 #include <iostream>
 #include "BurrowsWheeler.hpp"
+#include "VectorSufijos.hpp"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
     vector<uint8_t> cadena = {'a', 'b', 'r', 'a', 'c', 'a'};
-    vector<uint16_t> vectorSufijos = {5, 0, 3, 1, 4, 2};
+    vector<uint16_t> vectorSufijos=create_suffixes(cadena,1);
+    //vector<uint16_t> vectorSufijos = {5, 0, 3, 1, 4, 2};
 
     pair<std::vector<uint8_t>, uint16_t> transformada = transformar(vectorSufijos, cadena);
     cout << "I: " << transformada.second << endl;
