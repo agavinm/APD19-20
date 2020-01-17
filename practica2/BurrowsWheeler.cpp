@@ -16,30 +16,33 @@ using namespace std;
  * https://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-124.pdf
  */
 
-pair<vector<uint8_t>, uint16_t> transformar(const vector<uint16_t> &vectorSufijos, const vector<uint8_t> &cadena) {
-    vector<uint8_t> transformada(cadena.size());
-    uint16_t posicionI;
+vector<uint8_t> transformar(const vector<uint16_t> &vectorSufijos, const vector<uint8_t> &cadena) {
+    vector<uint8_t> transformada(cadena.size() + 2); // Los dos primeros bytes están reservados para I
+    uint16_t posicionI = 0;
 
     for (uint32_t i = 0; i < vectorSufijos.size(); i++) {
         if (vectorSufijos[i] == 0) {
             posicionI = i;
-            transformada[i] = cadena[cadena.size() - 1];
+            transformada[i + 2] = cadena[cadena.size() - 1];
         }
         else {
-            transformada[i] = cadena[vectorSufijos[i] - 1];
+            transformada[i + 2] = cadena[vectorSufijos[i] - 1];
         }
     }
 
-    return make_pair(transformada, posicionI);
+    transformada[0] = posicionI & 0xFFu;
+    transformada[1] = posicionI >> 8u;
+
+    return transformada;
 }
 
-vector<uint8_t> revertir(const vector<uint8_t> &transformada, const uint16_t posicionI) {
-    vector<uint8_t> cadena(transformada.size());
-    vector<uint32_t> P(transformada.size()), C(numeric_limits<uint8_t>::max() + 1, 0);
+vector<uint8_t> revertir(const vector<uint8_t> &transformada) {
+    vector<uint8_t> cadena(transformada.size() - 2);
+    vector<uint32_t> P(cadena.size()), C(1 + numeric_limits<uint8_t>::max(), 0);
 
-    for (uint32_t i = 0; i < transformada.size(); i++) {
-        P[i] = C[transformada[i]];
-        C[transformada[i]] += 1;
+    for (uint32_t i = 0; i < cadena.size(); i++) {
+        P[i] = C[transformada[i + 2]];
+        C[transformada[i + 2]] += 1;
     }
 
     uint32_t sum = 0;
@@ -48,11 +51,11 @@ vector<uint8_t> revertir(const vector<uint8_t> &transformada, const uint16_t pos
         ch = sum - ch;
     }
 
-    uint16_t i = posicionI;
+    uint16_t i = ((uint16_t) ((uint16_t)transformada[1] << 8u)) | transformada[0]; // Posición I
     bool end = false;
-    for (uint32_t j = transformada.size() - 1; !end; j--) {
-        cadena[j] = transformada[i];
-        i = P[i] + C[transformada[i]];
+    for (uint32_t j = cadena.size() - 1; !end; j--) {
+        cadena[j] = transformada[i + 2];
+        i = P[i] + C[transformada[i + 2]];
         if (j == 0)
             end = true;
     }
