@@ -19,7 +19,7 @@ using namespace std;
  */
 class Suffix {
 public:
-    int i;
+    uint16_t i;
     int rank[2];
 };
 
@@ -68,9 +68,9 @@ vector<uint16_t> vectorSufijos(const vector<uint8_t> &cadena) {
 std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sorting_method) {
     assert(cadena.size() <= 1 + numeric_limits<uint16_t>::max()); // Max cadena: 64 KiB = 65536 Bytes
 
-    int length = cadena.size();
+    const uint32_t length = cadena.size();
     Suffix suffixes[length];
-    for (int i = 0; i < length; ++i) {
+    for (uint32_t i = 0; i < length; ++i) {
         suffixes[i].i = i;
         suffixes[i].rank[0] = cadena[i] - 'a';
         if (i+1 < length) {
@@ -81,7 +81,7 @@ std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sort
         }
     }
 
-    int indexes[length];
+    uint16_t indexes[length];
     sort(suffixes, suffixes + length, cmp);
 
     for (int k = 4; k < 2*length; k = k*2) {
@@ -90,7 +90,7 @@ std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sort
         //suffixes ya esta ordenado.[0] es el primero
         suffixes[0].rank[0] = rank;
         indexes[suffixes[0].i] = 0;
-        for (int i = 1; i < length; i++) {
+        for (uint32_t i = 1; i < length; i++) {
             //Si coinciden los rankings 0 y 1 con el ranking del anterior
             //se le da el mismo ranking que el sufijo anterior
             if (suffixes[i].rank[0] == prev_rank &&
@@ -107,8 +107,8 @@ std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sort
         }
 
         // Assign next rank to every suffix
-        for (int i = 0; i < length; i++) {
-            int nextindex = suffixes[i].i + k/2;
+        for (uint32_t i = 0; i < length; i++) {
+            uint32_t nextindex = suffixes[i].i + k/2;
             suffixes[i].rank[1] = (nextindex < length)?
                                   suffixes[indexes[nextindex]].rank[0]: -1;
         }
@@ -118,7 +118,7 @@ std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sort
     }
 
     vector<uint16_t> final_suffixes(length);
-    for (int i = 0; i < length; i++){
+    for (uint32_t i = 0; i < length; i++){
         final_suffixes[i] = suffixes[i].i;
     }
     return final_suffixes;
