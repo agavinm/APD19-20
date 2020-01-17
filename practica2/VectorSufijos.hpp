@@ -13,22 +13,9 @@
 #include <cstdint>
 #include <vector>
 
-/**
- *  Representacion de un sufijo mediante su indice
- *  y un ranking
- */
-class Suffix{
-public:
-    int i;
-    int rank[2];
-};
-
 
 /**
  * Dada una cadena (vector de bytes) de longitud máxima 65536, devuelve el vector de sufijos correspondiente.
- *
- * Para generar el vector de sufijos se ha seguido el algoritmo de Skew, disponible en el material de clase,
- * String Matching (pags. 68-81).
  *
  * Explicación de la longitud máxima establecida:
  * Una cadena está formada por un máximo de 65536 Bytes (64 KiB).
@@ -41,6 +28,7 @@ public:
  * @return vector de sufijos
  */
 std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena);
-std::vector<uint16_t> create_suffixes(const std::vector<uint8_t> &cadena,int sorting_method);
+
+std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sorting_method);
 
 #endif //PRACTICA2_VECTORSUFIJOS_HPP
