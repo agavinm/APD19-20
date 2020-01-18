@@ -35,7 +35,7 @@ vector<uint8_t> transformar(const vector<uint8_t> &cadena) {
     vector<uint8_t> transformada(cadena.size() + 2); // Los dos primeros bytes están reservados para I
     uint16_t posicionI = 0;
 
-    uint32_t count = 0;
+    uint16_t count = 0;
     for (unsigned int index : vectorSufijos) {
         if (index < cadena.size()) {
             if (index == 0) {

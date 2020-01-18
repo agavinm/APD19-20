@@ -39,13 +39,6 @@ void comprimir(ifstream &fin, ofstream &fout, uint32_t n) {
         end = cadena.size() < n; // Comprobar si se ha llegado al final del fichero
 
         if (!cadena.empty()) {
-            if (cadena != revertir(transformar(cadena))) {// TODO: Error aquí, cuando funcione borrar
-                auto t = transformar(cadena);
-                auto r = revertir(transformar(cadena));
-                cerr << "ERROR" << endl;
-                exit(1);
-            }// TODO: Borrar hasta aquí
-
             // Procesar cadena
             cadena = transformar(cadena); // Transformada
 
@@ -154,10 +147,5 @@ int main(int argc, char *argv[]) {
 
     fin.close();
     fout.close();
-//    vector<uint8_t> cadena={'b','a','n','a','n','a'};
-//    vector<uint16_t> suffixes=vectorSufijos(cadena);
-//    for (int i = 0; i <cadena.size() ; ++i) {
-//        cout<<suffixes[i];
-//    }
     return 0;
 }

@@ -12,12 +12,17 @@
 #include <cstdint>
 #include <vector>
 
-// El vector de sufijos sigue la definición de VectorSufijos.hpp
-
 /**
- * Dados una cadena y su correspondiente vector de sufijos, devuelve la cadena transformada de Burrows-Wheeler.
+ * Dada una cadena (vector de bytes) de longitud máxima 65536, devuelve la cadena transformada de Burrows-Wheeler.
  *
- * Los dos primeros bytes de transformada corresponden al valor de la posición I.
+ * Explicación de la longitud máxima establecida:
+ * Una cadena está formada por un máximo de 65536 Bytes (64 KiB).
+ * Con 2 Bytes se pueden direccionar 2^16 posiciones (bytes), es decir, 65536 posiciones. Con 4 Bytes la cadena
+ * podría tener un máximo de 2^32 = 4 GiB, por eso se han optado por cadenas de hasta 64 KiB y direccionarlas con
+ * enteros de 2 Bytes.
+ * El tamaño máximo del vector será de 65536, por lo que en memoria ocupará un máximo de 2 Bytes * 65536 = 128 KiB.
+ *
+ * Los dos últimos bytes de transformada corresponden al valor de la posición I.
  *
  * @param vectorSufijos
  * @param cadena
@@ -28,7 +33,7 @@ std::vector<uint8_t> transformar(const std::vector<uint8_t> &cadena);
 /**
  * Dados la cadena transformada de Burrows-Wheeler y la posición I, devuelve la cadena original.
  *
- * Los dos primeros bytes de transformada corresponden al valor de la posición I.
+ * Los dos últimos bytes de transformada corresponden al valor de la posición I.
  *
  * @param transformada
  * @return cadena original
