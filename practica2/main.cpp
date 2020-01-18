@@ -39,16 +39,15 @@ void comprimir(ifstream &fin, ofstream &fout, uint32_t n) {
         end = cadena.size() < n; // Comprobar si se ha llegado al final del fichero
 
         if (!cadena.empty()) {
-            if (cadena != revertir(transformar(vectorSufijos(cadena), cadena))) {// TODO: Error aquí, cuando funcione borrar
-                auto v = vectorSufijos(cadena);
-                auto t = transformar(vectorSufijos(cadena), cadena);
-                auto r = revertir(transformar(vectorSufijos(cadena), cadena));
+            if (cadena != revertir(transformar(cadena))) {// TODO: Error aquí, cuando funcione borrar
+                auto t = transformar(cadena);
+                auto r = revertir(transformar(cadena));
                 cerr << "ERROR" << endl;
                 exit(1);
             }// TODO: Borrar hasta aquí
 
             // Procesar cadena
-            cadena = transformar(vectorSufijos(cadena), cadena); // Transformada
+            cadena = transformar(cadena); // Transformada
 
             // Comprimir transformada
             // cadena = algoritmosDeCompresion(cadena) TODO

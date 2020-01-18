@@ -27,8 +27,8 @@
  * @param cadena
  * @return vector de sufijos
  */
-std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena);
+std::vector<uint32_t> crearVectorSufijos(const std::vector<uint8_t> &cadena);
 
-std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sorting_method);
+std::vector<uint32_t> crearVectorSufijos(const std::vector<uint8_t> &cadena, int sorting_method);
 
 #endif //PRACTICA2_VECTORSUFIJOS_HPP

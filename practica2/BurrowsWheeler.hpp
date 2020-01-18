@@ -9,7 +9,8 @@
 #ifndef PRACTICA2_BURROWSWHEELER_HPP
 #define PRACTICA2_BURROWSWHEELER_HPP
 
-#include "VectorSufijos.hpp"
+#include <cstdint>
+#include <vector>
 
 // El vector de sufijos sigue la definición de VectorSufijos.hpp
 
@@ -22,7 +23,7 @@
  * @param cadena
  * @return cadena transformada
  */
-std::vector<uint8_t> transformar(const std::vector<uint16_t> &vectorSufijos, const std::vector<uint8_t> &cadena);
+std::vector<uint8_t> transformar(const std::vector<uint8_t> &cadena);
 
 /**
  * Dados la cadena transformada de Burrows-Wheeler y la posición I, devuelve la cadena original.

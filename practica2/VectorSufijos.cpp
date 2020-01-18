@@ -19,7 +19,7 @@ using namespace std;
  */
 class Suffix {
 public:
-    uint16_t i;
+    uint32_t i;
     int rank[2];
 };
 
@@ -52,10 +52,10 @@ int cmp(const Suffix &a, const Suffix &b) {
  * @param cadena
  * @return vectorSufijos
  */
-vector<uint16_t> vectorSufijos(const vector<uint8_t> &cadena) {
-    assert(cadena.size() <= 1 + numeric_limits<uint16_t>::max()); // Max cadena: 64 KiB = 65536 Bytes
+vector<uint32_t> crearVectorSufijos(const vector<uint8_t> &cadena) {
+    //assert(cadena.size() <= 1 + numeric_limits<uint32_t>::max()); // Max cadena: 64 KiB = 65536 Bytes
 
-    return vectorSufijos(cadena, 1);
+    return crearVectorSufijos(cadena, 1);
 }
 
 /**
@@ -65,23 +65,23 @@ vector<uint16_t> vectorSufijos(const vector<uint8_t> &cadena) {
  * @param sorting_method metodo de ordenacion(1->std::sort,2->radix_sort)
  * @return vectorSufijos
  */
-std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sorting_method) {
-    assert(cadena.size() <= 1 + numeric_limits<uint16_t>::max()); // Max cadena: 64 KiB = 65536 Bytes
+std::vector<uint32_t> crearVectorSufijos(const std::vector<uint8_t> &cadena, int sorting_method) {
+    //assert(cadena.size() <= 1 + numeric_limits<uint32_t>::max()); // Max cadena: 64 KiB = 65536 Bytes
 
     const uint32_t length = cadena.size();
     Suffix suffixes[length];
     for (uint32_t i = 0; i < length; ++i) {
         suffixes[i].i = i;
-        suffixes[i].rank[0] = cadena[i] - 'a';
+        suffixes[i].rank[0] = cadena[i];
         if (i+1 < length) {
-            suffixes[i].rank[1] = cadena[i+1] - 'a';
+            suffixes[i].rank[1] = cadena[i+1];
         }
         else {
             suffixes[i].rank[1] = -1;
         }
     }
 
-    uint16_t indexes[length];
+    uint32_t indexes[length];
     sort(suffixes, suffixes + length, cmp);
 
     for (int k = 4; k < 2*length; k = k*2) {
@@ -117,7 +117,7 @@ std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sort
         sort(suffixes, suffixes + length, cmp);
     }
 
-    vector<uint16_t> final_suffixes(length);
+    vector<uint32_t> final_suffixes(length);
     for (uint32_t i = 0; i < length; i++){
         final_suffixes[i] = suffixes[i].i;
     }
