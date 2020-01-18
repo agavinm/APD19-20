@@ -155,5 +155,10 @@ int main(int argc, char *argv[]) {
 
     fin.close();
     fout.close();
+//    vector<uint8_t> cadena={'b','a','n','a','n','a'};
+//    vector<uint16_t> suffixes=vectorSufijos(cadena);
+//    for (int i = 0; i <cadena.size() ; ++i) {
+//        cout<<suffixes[i];
+//    }
     return 0;
 }
