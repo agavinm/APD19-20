@@ -10,6 +10,7 @@
 #include <fstream>
 #include <limits>
 #include "BurrowsWheeler.hpp"
+#include "Huffman-AB1/huffman.hpp"
 
 using namespace std;
 
@@ -43,6 +44,7 @@ void comprimir(ifstream &fin, ofstream &fout, uint32_t n) {
             cadena = transformar(cadena); // Transformada
 
             // Comprimir transformada
+            cadena = comprimir(cadena);
             // cadena = algoritmosDeCompresion(cadena) TODO
 
             // Escribir en el fichero de salida el número de bytes que tiene la cadena de salida (4 bytes)
@@ -86,6 +88,7 @@ void descomprimir(ifstream &fin, ofstream &fout) {
         }
 
         // Descomprimir entrada
+        cadena = descomprimir(cadena);
         // cadena = algoritmosDeDesompresion(cadena) TODO
 
         // Revertir transformada
