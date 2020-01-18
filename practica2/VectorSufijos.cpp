@@ -64,11 +64,9 @@ std::vector<uint16_t> vectorSufijos(const std::vector<uint8_t> &cadena, int sort
 
     int N = cadena.size();
     int suffix_rank[N];
-    int suffix_rank_before[N];
     Suffix L[N];
     for (int i = 0; i <N ; ++i) {
         suffix_rank[i]=cadena[i]-'a';
-        suffix_rank_before[i]=cadena[i]-'a';
     }
     int total_iterations=ceil(log2(N));
     for (int times = 0; times<total_iterations; ++times) {
