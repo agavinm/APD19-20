@@ -24,7 +24,7 @@ using namespace std;
  * https://stackoverflow.com/questions/34639854/using-suffix-array-algorithm-for-burrows-wheeler-transform
  */
 vector<uint8_t> transformar(const vector<uint8_t> &cadena) {
-    assert(cadena.size() <= 1 + numeric_limits<uint16_t >::max()); // Max cadena: 64 KiB = 65536 Bytes
+    assert(cadena.size() < numeric_limits<uint16_t >::max() - 1); // Max cadena: 64 KiB = 65533 Bytes
 
     vector<uint8_t> bloque;
     bloque.reserve(2 * cadena.size());
@@ -56,10 +56,10 @@ vector<uint8_t> transformar(const vector<uint8_t> &cadena) {
 }
 
 vector<uint8_t> revertir(const vector<uint8_t> &transformada) {
-    assert(transformada.size() <= 3 + numeric_limits<uint16_t >::max()); // Max cadena: 64 KiB = 65536 Bytes + 2 bytes I
+    assert(transformada.size() < numeric_limits<uint16_t >::max() + 1); // Max cadena: 64 KiB = 65533 Bytes + 2 bytes I
 
     vector<uint8_t> cadena(transformada.size() - 2);
-    vector<uint32_t> P(cadena.size()), C(1 + numeric_limits<uint8_t>::max(), 0);
+    vector<uint16_t> P(cadena.size()), C(1 + numeric_limits<uint8_t>::max(), 0);
 
     for (uint32_t i = 0; i < cadena.size(); i++) {
         P[i] = C[transformada[i]];
@@ -67,7 +67,7 @@ vector<uint8_t> revertir(const vector<uint8_t> &transformada) {
     }
 
     uint32_t sum = 0;
-    for (uint32_t &ch : C) {
+    for (uint16_t &ch : C) {
         sum += ch;
         ch = sum - ch;
     }
@@ -100,7 +100,7 @@ vector<uint8_t> moveToFront(const vector<uint8_t> &cadena) {
     }
 
     list<uint8_t>::iterator it;
-    uint32_t rango;
+    uint8_t rango;
     for (uint8_t c : cadena) {
         bool encontrada = false;
         it = diccionario.begin();

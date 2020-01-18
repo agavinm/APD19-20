@@ -14,7 +14,7 @@
 /* Inserta el elemento ar al Heap */
 void Heap::insertar(Arbol &ar) {
     this->v.push_back(&ar); // Nuevo nodo hoja más a la derecha
-    uint32_t pos = this->v.size() - 1, posPadre = (pos+1) / 2 - 1;
+    uint16_t pos = this->v.size() - 1, posPadre = (pos+1) / 2 - 1;
     bool continuar = pos != 0;
 
     while (continuar) { // Intercambiar mientras el hijo sea menor que el padre
@@ -41,7 +41,7 @@ Arbol* Heap::primero() {
         this->v.pop_back();
 
         // Hundir cima
-        uint32_t pos = 0, posHijo = (pos+1) * 2 - 1;
+        uint16_t pos = 0, posHijo = (pos+1) * 2 - 1;
         bool continuar = posHijo < this->v.size();
         Arbol *aux;
 

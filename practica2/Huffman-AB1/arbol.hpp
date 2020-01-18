@@ -16,7 +16,7 @@
 
 class Arbol {
 private:
-    uint32_t frec; // clave: frecuencia
+    uint16_t frec; // clave: frecuencia
     bool hoja; // true si es árbol hoja; false en caso contrario
     uint8_t byte; // valor: byte al que corresponde (sólo si es nodo hoja)
     Arbol *hijoI, *hijoD;
@@ -30,9 +30,9 @@ private:
 
     /* Dado un vector de entrada, donde se ha almacenado un árbol mediante la función guardar() y ya se han leído la
      * frecuencias y están en la cola frecuencias, devuelve el árbol p que estaba almacenado. */
-    Arbol* leerFrecuencias(const std::vector<uint8_t> &entrada, uint32_t &i, std::queue<uint32_t> &frecuencias, Arbol *const p);
+    Arbol* leerFrecuencias(const std::vector<uint8_t> &entrada, uint16_t &i, std::queue<uint16_t> &frecuencias, Arbol *const p);
 
-    explicit Arbol(uint32_t frecuencia) : // Constructor intermedio, el árbol no es válido
+    explicit Arbol(uint16_t frecuencia) : // Constructor intermedio, el árbol no es válido
             frec(frecuencia), hoja(false), byte(0), hijoI(nullptr), hijoD(nullptr) {}
 
 public:
@@ -40,10 +40,10 @@ public:
             frec(hijoIzquierdo.frecuencia() + hijoDerecho.frecuencia()), hoja(false), byte(0), hijoI(&hijoIzquierdo),
             hijoD(&hijoDerecho) {}
 
-    Arbol(const uint32_t frecuencia, const uint8_t byte) : // Constructor del árbol hoja
+    Arbol(const uint16_t frecuencia, const uint8_t byte) : // Constructor del árbol hoja
             frec(frecuencia), hoja(true), byte(byte), hijoI(nullptr), hijoD(nullptr) {}
 
-    explicit Arbol(const std::vector<uint8_t> &entrada, uint32_t &i); // Constructor del árbol desde el vector generado por la función guardar
+    explicit Arbol(const std::vector<uint8_t> &entrada, uint16_t &i); // Constructor del árbol desde el vector generado por la función guardar
 
     /* Devuelve el hijo izquierdo. */
     Arbol* izdo() const;
@@ -52,7 +52,7 @@ public:
     Arbol* dcho() const;
 
     /* Devuelve la frecuencia. */
-    uint32_t frecuencia() const;
+    uint16_t frecuencia() const;
 
     /* Devuelve el byte. */
     uint8_t obtenerByte() const;

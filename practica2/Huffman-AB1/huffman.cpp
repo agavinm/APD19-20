@@ -15,9 +15,9 @@ using namespace std;
 
 /* Dado un fichero file y N el número de carácteres posibles, devuelve una cola de árboles hoja, donde cada hoja
  * contiene su símbolo y su frecuencia */
-void calcularFrecuencias(const vector<uint8_t> &cadena, queue<Arbol*> &caracteres, const uint32_t N) {
-    uint32_t frecuencias[N];
-    for (uint32_t &frecuencia : frecuencias) {
+void calcularFrecuencias(const vector<uint8_t> &cadena, queue<Arbol*> &caracteres, const uint16_t N) {
+    uint16_t frecuencias[N];
+    for (uint16_t &frecuencia : frecuencias) {
         frecuencia = 0;
     }
 
@@ -27,7 +27,7 @@ void calcularFrecuencias(const vector<uint8_t> &cadena, queue<Arbol*> &caractere
     }
 
     uint8_t caracter = 0;
-    for (uint32_t &frecuencia : frecuencias) {
+    for (uint16_t &frecuencia : frecuencias) {
         if (frecuencia > 0) {
             caracteres.push(new Arbol(frecuencia, caracter));
         }
@@ -88,7 +88,7 @@ vector<uint8_t> comprimir(const vector<uint8_t> &cadena) {
     vector<uint8_t> resultado;
 
     // Obtener frecuencias
-    const uint32_t N = 256; // Número de caracteres posibles
+    const uint16_t N = 256; // Número de caracteres posibles
     queue<Arbol*> q;
     calcularFrecuencias(cadena, q, N);
 
@@ -152,7 +152,7 @@ vector<uint8_t> descomprimir(const vector<uint8_t> &cadena) {
     vector<uint8_t> resultado;
 
     // Obtener arbol de huffman
-    uint32_t i = 0;
+    uint16_t i = 0;
     Arbol *a = new Arbol(cadena, i);
 
     // Descomprimir fichero
@@ -165,8 +165,8 @@ vector<uint8_t> descomprimir(const vector<uint8_t> &cadena) {
         caracterSiguiente = cadena[i];
         i++;
 
-        for (i = i; i < cadena.size(); i++) {
-            caracterSiguienteSiguiente = cadena[i];
+        for (uint32_t j = i; j < cadena.size(); j++) {
+            caracterSiguienteSiguiente = cadena[j];
 
             numBit = 0;
             while (numBit<8) {

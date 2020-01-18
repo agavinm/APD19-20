@@ -11,7 +11,7 @@
 using namespace std;
 
 /* Devuelve la frecuencia. */
-uint32_t Arbol::frecuencia() const {
+uint16_t Arbol::frecuencia() const {
     return this->frec;
 }
 
@@ -38,8 +38,6 @@ Arbol* Arbol::dcho() const {
 /* Dado un fichero file, guarda las frecuencias del árbol en dicho fichero y devuelve carácteres que contiene los
  * nodos hoja ordenados según se han guardado en el fichero. Además avanza el iterador hasta donde se ha leido. */
 void Arbol::guardarFrecuencias(vector<uint8_t> &salida, queue<uint8_t> &caracteres) const {
-    salida.push_back(this->frec >> 24u);
-    salida.push_back(this->frec >> 16u);
     salida.push_back(this->frec >> 8u);
     salida.push_back(this->frec);
 
@@ -51,9 +49,7 @@ void Arbol::guardarFrecuencias(vector<uint8_t> &salida, queue<uint8_t> &caracter
         this->hijoI->guardarFrecuencias(salida, caracteres);
     }
     else {
-        uint32_t nulo = 0;
-        salida.push_back(nulo >> 24u);
-        salida.push_back(nulo >> 16u);
+        uint16_t nulo = 0;
         salida.push_back(nulo >> 8u);
         salida.push_back(nulo);
     }
@@ -68,9 +64,7 @@ void Arbol::guardar(vector<uint8_t> &salida) const {
     queue<uint8_t> caracteres;
     guardarFrecuencias(salida, caracteres);
 
-    uint32_t nulo = 0;
-    salida.push_back(nulo >> 24u);
-    salida.push_back(nulo >> 16u);
+    uint16_t nulo = 0;
     salida.push_back(nulo >> 8u);
     salida.push_back(nulo);
 
@@ -90,11 +84,11 @@ void Arbol::setHoja(uint8_t b) {
 
 /* Dado un fichero file, donde se ha almacenado un árbol mediante la función guardar() y ya se han leído la
  * frecuencias y están en la cola frecuencias, devuelve el árbol p que estaba almacenado en el fichero. */
-Arbol* Arbol::leerFrecuencias(const std::vector<uint8_t> &entrada, uint32_t &i, std::queue<uint32_t> &frecuencias, Arbol *const p) {
+Arbol* Arbol::leerFrecuencias(const std::vector<uint8_t> &entrada, uint16_t &i, std::queue<uint16_t> &frecuencias, Arbol *const p) {
     Arbol *a = nullptr;
 
     if (!frecuencias.empty()) {
-        uint32_t frecuencia = frecuencias.front();
+        uint16_t frecuencia = frecuencias.front();
         frecuencias.pop();
 
         if (frecuencia != 0) {
@@ -123,18 +117,16 @@ Arbol* Arbol::leerFrecuencias(const std::vector<uint8_t> &entrada, uint32_t &i, 
     return a;
 }
 
-Arbol::Arbol(const std::vector<uint8_t> &entrada, uint32_t &i) {
-    queue<uint32_t> frecuencias;
-    uint32_t frecuencia;
+Arbol::Arbol(const std::vector<uint8_t> &entrada, uint16_t &i) {
+    queue<uint16_t> frecuencias;
+    uint16_t frecuencia;
     bool nulo = false, fin = false;
 
     // Leer frecuencias
     while (!nulo || !fin) {
-        frecuencia = uint32_t((uint8_t)(entrada[i]) << 24u |
-                    (uint8_t)(entrada[i + 1]) << 16u |
-                    (uint8_t)(entrada[i + 2]) << 8u |
-                    (uint8_t)(entrada[i + 3]));
-        i += 4;
+        frecuencia = uint32_t((uint8_t)(entrada[i]) << 8u |
+                    (uint8_t)(entrada[i + 1]));
+        i += 2;
 
         frecuencias.push(frecuencia);
 

@@ -25,7 +25,8 @@ using namespace std;
  * @param fout
  * @param n
  */
-void comprimir(ifstream &fin, ofstream &fout, uint32_t n) {
+void comprimir(ifstream &fin, ofstream &fout) {
+    const uint16_t n = numeric_limits<uint16_t>::max() - 2;
     vector<uint8_t> cadena;
     uint8_t byte;
 
@@ -146,7 +147,7 @@ int main(int argc, char *argv[]) {
     if (action == "-d")
         descomprimir(fin, fout);
     else
-        comprimir(fin, fout, 1 + numeric_limits<uint16_t>::max());
+        comprimir(fin, fout);
 
     fin.close();
     fout.close();

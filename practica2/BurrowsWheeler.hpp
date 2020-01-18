@@ -13,14 +13,14 @@
 #include <vector>
 
 /**
- * Dada una cadena (vector de bytes) de longitud máxima 65536, devuelve la cadena transformada de Burrows-Wheeler.
+ * Dada una cadena (vector de bytes) de longitud máxima 65533, devuelve la cadena transformada de Burrows-Wheeler.
  *
  * Explicación de la longitud máxima establecida:
- * Una cadena está formada por un máximo de 65536 Bytes (64 KiB).
+ * La cadena transformada está formada por un máximo de 65535 Bytes (64 KiB).
  * Con 2 Bytes se pueden direccionar 2^16 posiciones (bytes), es decir, 65536 posiciones. Con 4 Bytes la cadena
  * podría tener un máximo de 2^32 = 4 GiB, por eso se han optado por cadenas de hasta 64 KiB y direccionarlas con
  * enteros de 2 Bytes.
- * El tamaño máximo del vector será de 65536, por lo que en memoria ocupará un máximo de 2 Bytes * 65536 = 128 KiB.
+ * El tamaño máximo del vector será de 65535, por lo que en memoria ocupará un máximo de 2 Bytes * 65535 = 128 KiB.
  *
  * Los dos últimos bytes de transformada corresponden al valor de la posición I.
  *
