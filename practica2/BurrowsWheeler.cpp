@@ -8,6 +8,7 @@
 
 #include <limits>
 #include <cassert>
+#include <list>
 #include "VectorSufijos.hpp"
 #include "BurrowsWheeler.hpp"
 
@@ -81,4 +82,71 @@ vector<uint8_t> revertir(const vector<uint8_t> &transformada) {
     }
 
     return cadena;
+}
+
+
+/*
+ * https://en.wikipedia.org/wiki/Move-to-front_transform
+ */
+
+vector<uint8_t> moveToFront(const vector<uint8_t> &cadena) {
+    vector<uint8_t> resultado;
+    resultado.reserve(cadena.size());
+    list<uint8_t> diccionario;
+
+    // Inicializar diccionario
+    for (uint32_t i = 0; i < 256; i++) {
+        diccionario.push_back(i);
+    }
+
+    list<uint8_t>::iterator it;
+    uint32_t rango;
+    for (uint8_t c : cadena) {
+        bool encontrada = false;
+        it = diccionario.begin();
+        rango = 0;
+        while (!encontrada) {
+            if (*it == c) {
+                encontrada = true;
+            }
+            else {
+                it++;
+                rango++;
+            }
+        }
+
+        resultado.push_back(rango);
+
+        diccionario.erase(it);
+        diccionario.insert(diccionario.begin(), c);
+    }
+
+    return resultado;
+}
+
+vector<uint8_t> moveToFrontRevertir(const vector<uint8_t> &cadena) {
+    vector<uint8_t> resultado;
+    resultado.reserve(cadena.size());
+    list<uint8_t> diccionario;
+
+    // Inicializar diccionario
+    for (uint32_t i = 0; i < 256; i++) {
+        diccionario.push_back(i);
+    }
+
+    list<uint8_t>::iterator it;
+    uint8_t e;
+    for (uint8_t rango : cadena) {
+        it = diccionario.begin();
+        for (uint8_t i = 0; i < rango; i++)
+            it++;
+
+        e = *it;
+        resultado.push_back(e);
+
+        diccionario.erase(it);
+        diccionario.insert(diccionario.begin(), e);
+    }
+
+    return resultado;
 }

@@ -40,5 +40,19 @@ std::vector<uint8_t> transformar(const std::vector<uint8_t> &cadena);
  */
 std::vector<uint8_t> revertir(const std::vector<uint8_t> &transformada);
 
+/**
+ * Devuelve la cadena resultante de aplicar el algoritmo move to front.
+ * @param cadena
+ * @return cadena aplicando move to front
+ */
+std::vector<uint8_t> moveToFront(const std::vector<uint8_t> &cadena);
+
+/**
+ * Devuelve la cadena original obtenida al aplicar el algoritmo move to front.
+ * @param cadena
+ * @return
+ */
+std::vector<uint8_t> moveToFrontRevertir(const std::vector<uint8_t> &cadena);
+
 
 #endif //PRACTICA2_BURROWSWHEELER_HPP

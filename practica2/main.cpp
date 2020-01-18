@@ -44,8 +44,8 @@ void comprimir(ifstream &fin, ofstream &fout, uint32_t n) {
             cadena = transformar(cadena); // Transformada
 
             // Comprimir transformada
+            cadena = moveToFront(cadena);
             cadena = comprimir(cadena);
-            // cadena = algoritmosDeCompresion(cadena) TODO
 
             // Escribir en el fichero de salida el número de bytes que tiene la cadena de salida (4 bytes)
             uint32_t numBytes = cadena.size();
@@ -89,7 +89,7 @@ void descomprimir(ifstream &fin, ofstream &fout) {
 
         // Descomprimir entrada
         cadena = descomprimir(cadena);
-        // cadena = algoritmosDeDesompresion(cadena) TODO
+        cadena = moveToFrontRevertir(cadena);
 
         // Revertir transformada
         cadena = revertir(cadena);
